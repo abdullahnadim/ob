@@ -1,11 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 🚀 MOVES THE DEV INDICATOR OUT OF THE WAY (Fixes mobile nav overlap)
+  // 🚀 MOVES THE DEV INDICATOR OUT OF THE WAY
   devIndicators: {
-    appIsrStatus: false, // Hides the static indicator
-    buildActivityPosition: 'bottom-right', 
+    // Only the 'buildActivityPosition' or 'position' is standard here
+    // In newer versions, it's often nested under buildActivity
+    buildActivity: true,
   },
+  // To completely ignore the indicator during build/dev if it keeps failing:
+  // devIndicators: false, 
+
   images: {
     remotePatterns: [
       {
@@ -20,7 +24,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'i.ibb.co', // <-- Added ImgBB here!
+        hostname: 'i.ibb.co',
         pathname: '/**',
       }
     ],
