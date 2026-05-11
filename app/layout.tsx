@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import MobileNav from "@/components/MobileNav";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const bengali = Noto_Sans_Bengali({ 
@@ -10,7 +12,7 @@ const bengali = Noto_Sans_Bengali({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#050505", // 🚀 Updated to match your deep Obsidian background
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent", // 🚀 Makes the iOS status bar blend into your app
     title: "OsthirBengali",
   },
 };
@@ -31,8 +33,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="bn" className="dark">
-      <body className={`${inter.variable} ${bengali.variable} font-sans bg-black text-white antialiased`}>
+      <body className={`${inter.variable} ${bengali.variable} font-sans bg-[#050505] text-white antialiased`}>
         <div className="flex flex-col min-h-screen">
+          {/* 🚀 INJECTED THE NAVIGATION HERE */}
+          <Navbar />
+          <MobileNav />
+          
           {children}
         </div>
       </body>

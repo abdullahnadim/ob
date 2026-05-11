@@ -1,112 +1,93 @@
-// app/page.tsx
-import { Metadata } from "next";
-import Script from "next/script";
-import FeedContent from "@/components/FeedContent"; // Safe client-side fetcher
+import { app } from "@/lib/firebase";
+import { getFirestore, collection, getDocs, query, orderBy, limit } from "firebase/firestore/lite";
+import ViralCard from "@/components/ViralCard";
 
-// 1. ADVANCED DYNAMIC METADATA (SEO Core)
-export const metadata: Metadata = {
-  title: "OsthirBengali | Trending Memes, Satire & Entertainment",
-  description: "Bangladesh's fastest-growing platform for viral Gen-Z content, savage memes, tech news, esports, and deep satire. The pulse of Bengali internet culture.",
-  keywords: ["Bengali memes", "Bangladesh trending", "Satire Bangladesh", "Osthir", "Tech news BD", "Esports Bangladesh"],
-  alternates: {
-    canonical: "https://osthirbengali.com",
-  },
-  openGraph: {
-    title: "OsthirBengali | Trending Viral Culture",
-    description: "The ultimate Bengali Gen-Z entertainment and meme portal.",
-    url: "https://osthirbengali.com",
-    siteName: "OsthirBengali",
-    images: [
-      {
-        url: "https://osthirbengali.com/og-home.jpg",
-        width: 1200,
-        height: 630,
-        alt: "OsthirBengali Viral Media Platform",
-      },
-    ],
-    locale: "bn_BD",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@OsthirBengali",
-    creator: "@OsthirBengali",
-  },
-};
+// 1. INITIALIZE THE SAFE SERVER-SIDE DATABASE
+const dbServer = getFirestore(app);
 
-// 2. SERVER COMPONENT HOMEPAGE (Handles SEO, delegates fetching)
-export default function HomePage() {
-  // 3. JSON-LD SCHEMA MARKUP (For Rich Google Results)
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "OsthirBengali",
-    url: "https://osthirbengali.com",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://osthirbengali.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
+// 2. SAFELY FETCH POSTS (Server-Side Rendering)
+async function getPosts() {
+  try {
+    const postsRef = collection(dbServer, "posts");
+    // Fetch the latest 24 posts
+    const q = query(postsRef, orderBy("createdAt", "desc"), limit(24));
+    const snapshot = await getDocs(q);
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "OsthirBengali",
-    url: "https://osthirbengali.com",
-    logo: "https://osthirbengali.com/logo.png",
-    sameAs: [
-      "https://facebook.com/osthirbengali",
-      "https://instagram.com/osthirbengali",
-      "https://tiktok.com/@osthirbengali",
-    ],
-  };
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        // Convert Firebase timestamp to string for safe component passing
+        createdAt: data.createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const posts = await getPosts();
+
+  const categories = [
+    "Memes", 
+    "Satire", 
+    "Tech", 
+    "Gaming", 
+    "Awareness", 
+    "Culture", 
+    "Music"
+  ];
 
   return (
-    <>
-      {/* Injecting Schema Markup for Google Crawlers */}
-      <Script
-        id="website-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-      <Script
-        id="organization-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-
-      <main className="min-h-screen container mx-auto px-4 py-8 max-w-7xl">
-        
-        {/* SEMANTIC HEADER - Critical for SEO hierarchy */}
-        <header className="mb-10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-primary via-orange-500 to-yellow-500">
-              OsthirBengali.
-            </h1>
-            <p className="text-zinc-400 mt-2 text-lg font-bengali font-medium">
-              বাঙালি ইন্টারনেটের পালস। (The pulse of the Bengali internet.)
-            </p>
-          </div>
-          
-          <div className="flex gap-2">
-            <span className="glass px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 text-primary">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
-              </span>
-              LIVE TRENDING
-            </span>
-          </div>
-        </header>
-
-        {/* 
-          Instead of fetching on the server and freezing the PC, 
-          we mount the safe client component here.
+    // pt-12 for mobile (clears status bar), md:pt-32 for desktop (clears navbar)
+    // overflow-x-hidden is the "Lock" that prevents the whole page from wobbling
+    <main className="min-h-screen text-white pt-12 md:pt-32 px-4 max-w-2xl mx-auto pb-32 overflow-x-hidden">
+      
+      {/* 🚀 THE PINTEREST-STYLE HORIZONTAL CATEGORY MENU */}
+      <div className="relative mb-8 w-full border-b border-white/10 pb-4">
+        {/* - flex gap-3: Spacing between buttons
+            - overflow-x-auto: Allows swiping
+            - hide-scrollbar: Removes ugly gray scroll bars (requires the CSS we added earlier)
         */}
-        <FeedContent />
+        <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+          
+          {/* Active Tab (All) */}
+          {/* shrink-0 is CRITICAL: It stops the button from squishing on mobile */}
+          <div className="shrink-0 px-6 py-2 bg-[#FF3B30] text-white rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(255,59,48,0.4)] cursor-pointer">
+            All
+          </div>
 
-      </main>
-    </>
+          {/* Inactive Tabs */}
+          {categories.map((cat) => (
+            <div 
+              key={cat} 
+              className="shrink-0 px-6 py-2 bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest cursor-pointer transition-colors"
+            >
+              {cat}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 🚀 THE NATIVE FEED GRID (1 Column for Mobile, Multi for PC) */}
+      {posts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {posts.map((post) => (
+            <ViralCard key={post.id} post={post} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="w-12 h-12 border-4 border-white/10 border-t-[#FF3B30] rounded-full animate-spin mb-4" />
+          <h3 className="text-zinc-500 font-bold tracking-widest uppercase text-[10px]">
+            Connecting to the Pulse...
+          </h3>
+        </div>
+      )}
+
+    </main>
   );
 }

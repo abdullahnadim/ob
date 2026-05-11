@@ -2,19 +2,21 @@ import { app } from "@/lib/firebase";
 import { getFirestore, collection, query, where, getDocs } from "firebase/firestore/lite";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import Logo from "@/components/Logo";
 import FadeIn from "@/components/FadeIn";
-import { Flame, Share2, ArrowLeft } from "lucide-react";
+import { Flame, Share2 } from "lucide-react";
 
 // 1. INITIALIZE THE SAFE SERVER-SIDE DATABASE
 const dbServer = getFirestore(app);
 
-// 2. SAFELY FETCH THE POST DATA (NO GRPC ERRORS!)
+// 2. SAFELY FETCH THE POST DATA (With URL Decoding!)
 async function getPost(slug: string) {
   try {
+    // 🚀 THE FIX: Decode the URL back to native Bengali characters
+    const decodedSlug = decodeURIComponent(slug); 
+
     const postsRef = collection(dbServer, "posts");
-    const q = query(postsRef, where("slug", "==", slug));
+    const q = query(postsRef, where("slug", "==", decodedSlug));
     const snapshot = await getDocs(q);
 
     if (snapshot.empty) return null;
@@ -44,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-// 4. THE LIQUID GLASS PAGE COMPONENT
+// 4. THE OBSIDIAN & LASER PAGE COMPONENT
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const post = await getPost(resolvedParams.slug);
@@ -54,41 +56,38 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <main className="min-h-screen bg-[#F5F5F7] text-[#1D1D1F] pb-32 overflow-hidden">
-      {/* FLOATING GLASS NAVBAR */}
-      <nav className="fixed top-0 inset-x-0 z-50 bg-white/60 backdrop-blur-2xl border-b border-white/50 h-16 flex items-center px-4 md:px-8 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
-        <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors bg-white/50 px-4 py-2 rounded-full shadow-sm border border-gray-200/50 hover:shadow-md hover:-translate-y-0.5 duration-300">
-          <ArrowLeft size={18} />
-          <span className="font-semibold text-sm">Back to Feed</span>
-        </Link>
-      </nav>
+    <main className="min-h-screen text-white pb-32 overflow-hidden pt-10">
 
       {/* CINEMATIC HERO SECTION */}
-      <div className="relative w-full max-w-5xl mx-auto mt-24 px-4 md:px-8">
+      <div className="relative w-full max-w-5xl mx-auto px-4 md:px-8">
         <FadeIn delay={0.1}>
-          <div className="relative w-full aspect-[4/3] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden shadow-xl bg-gray-200">
+          <div className="relative w-full aspect-[4/3] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden bg-black border border-white/10 shadow-2xl">
             <Image 
               src={post.thumbnailUrl || "/placeholder.jpg"} 
-              alt={post.title}
+              alt={post.title} 
               fill
-              className="object-cover"
-              priority
+              priority /* 🚀 FIXES LCP WARNING: Loads this image immediately */
+              unoptimized={true} /* 🚀 FIXES TIMEOUT: Bypasses Next.js server compression */
+              className="object-cover opacity-90"
             />
+            {/* Gradient overlay to fade out the sharp bottom edge of the image */}
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent pointer-events-none" />
           </div>
         </FadeIn>
         
         {/* Floating Title Card */}
         <FadeIn delay={0.2}>
-          <div className="relative -mt-16 md:-mt-24 mx-4 md:mx-12 liquid-glass rounded-3xl p-6 md:p-10 shadow-2xl z-10">
+          {/* Thicker frosted glass (bg-[#050505]/80) to clean up the overlap */}
+          <div className="relative -mt-16 md:-mt-24 mx-4 md:mx-12 bg-[#050505]/80 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl z-10">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="bg-[#FF3B30] text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-sm">
+              <span className="bg-[#FF3B30] text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(255,59,48,0.3)]">
                 {post.category || "Trending"}
               </span>
-              <span className="text-gray-500 text-sm font-semibold flex items-center gap-1.5 bg-gray-100/80 px-3 py-1.5 rounded-full border border-gray-200">
-                <Flame size={16} className="text-[#FF3B30]" /> {post.views || 0} Views
+              <span className="text-zinc-400 text-sm font-bold tracking-widest flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                <Flame size={16} className="text-[#FF3B30]" /> {post.views || 0}
               </span>
             </div>
-            <h1 className="font-bengali text-3xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
+            <h1 className="font-bengali text-3xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-md">
               {post.title}
             </h1>
           </div>
@@ -98,36 +97,32 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       {/* RICH TEXT CONTENT */}
       <article className="max-w-3xl mx-auto px-6 py-12 md:py-16">
         <FadeIn delay={0.3}>
-          <div className="flex items-center justify-between border-b border-gray-200 pb-6 mb-10">
+          <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-10">
             <div className="flex items-center gap-4">
               
-              {/* THE NEW BREATHING LOGO */}
               <Logo />
               
               <div>
-                <p className="font-bold text-sm text-gray-900">Osthir Desk</p>
-                <p className="text-xs text-gray-500 font-medium">
+                <p className="font-bold text-sm text-zinc-200">Osthir Desk</p>
+                <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest mt-0.5">
                   {post.createdAt ? new Date(post.createdAt.toDate?.() || post.createdAt).toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' }) : "Recently Published"}
                 </p>
               </div>
             </div>
 
-            <button className="flex items-center gap-2 bg-white hover:bg-gray-50 shadow-sm border border-gray-200 px-5 py-2.5 rounded-full text-sm font-bold text-gray-700 transition-all hover:shadow-md hover:-translate-y-0.5">
-              <Share2 size={16} /> Share
+            <button className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-5 py-2.5 rounded-full text-sm font-bold text-zinc-300 transition-all hover:text-white cursor-pointer">
+              <Share2 size={16} /> <span className="hidden sm:inline">Share</span>
             </button>
           </div>
         </FadeIn>
 
-        {/* 
-          The Tailwind Typography plugin automatically styles the HTML here. 
-        */}
         <FadeIn delay={0.4}>
           <div 
-            className="prose prose-gray prose-lg max-w-none font-bengali 
-                       prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
-                       prose-p:text-gray-700 prose-p:leading-relaxed
+            className="prose prose-invert prose-lg max-w-none font-bengali 
+                       prose-headings:font-bold prose-headings:text-white prose-headings:tracking-tight
+                       prose-p:text-zinc-300 prose-p:leading-relaxed
                        prose-a:text-[#FF3B30] prose-a:no-underline hover:prose-a:underline
-                       prose-img:rounded-[2rem] prose-img:shadow-md"
+                       prose-img:rounded-3xl prose-img:border prose-img:border-white/10 prose-img:shadow-2xl"
             dangerouslySetInnerHTML={{ __html: post.content || "" }}
           />
         </FadeIn>

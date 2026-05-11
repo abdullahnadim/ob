@@ -1,52 +1,98 @@
-// components/Navbar.tsx
 "use client";
 
-import Link from "next/link";
-import { Search, Menu } from "lucide-react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, Flame, LayoutDashboard, Search } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const pathname = usePathname();
 
-  // Hide navbar when scrolling down, show when scrolling up
+  // The "Smart Scroll" logic (hides on scroll down, shows on scroll up)
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) setHidden(true);
-    else setHidden(false);
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
   });
+
+  const navLinks = [
+    { name: "Feed", path: "/", icon: <Home size={16} /> },
+    { name: "Trending", path: "/trending", icon: <Flame size={16} /> },
+    { name: "Studio", path: "/admin", icon: <LayoutDashboard size={16} /> },
+  ];
 
   return (
     <motion.nav
       variants={{
-        visible: { y: 0 },
-        hidden: { y: "-100%" },
+        visible: { y: 0, opacity: 1 },
+        hidden: { y: "-150%", opacity: 0 },
       }}
       animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl"
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      // 🚀 THE FIX IS ON THIS LINE: "hidden md:flex" makes it vanish on phones!
+      className="hidden md:flex fixed top-4 md:top-6 inset-x-0 z-50 justify-center px-4 pointer-events-none"
     >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="font-black text-2xl tracking-tighter text-white">
-          Osthir<span className="text-primary">Bengali</span>.
+      <div className="pointer-events-auto obsidian-glass p-1.5 md:p-2 rounded-full flex items-center gap-1 md:gap-2 shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/10 w-full max-w-fit">
+        
+        {/* LOGO */}
+        <Link href="/" className="pl-2 pr-3 md:pr-4 md:border-r border-white/10 hidden md:block transition-transform hover:scale-105">
+          <Logo />
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8 font-medium text-sm text-zinc-400">
-          <Link href="/category/memes" className="hover:text-white transition-colors">Memes</Link>
-          <Link href="/category/satire" className="hover:text-white transition-colors">Satire</Link>
-          <Link href="/category/tech" className="hover:text-white transition-colors">Tech</Link>
-          <Link href="/category/trending" className="text-primary font-bold">Trending</Link>
+        {/* NAVIGATION LINKS */}
+        <div className="flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.path;
+
+            return (
+              <Link key={link.name} href={link.path} className="relative z-10 outline-none">
+                {/* PHYSICAL CLICK FEEDBACK 
+                  The button physically presses down when clicked and scales up on hover
+                */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`relative px-4 py-2.5 rounded-full flex items-center gap-2 text-xs md:text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${
+                    isActive ? "text-white" : "text-zinc-500 hover:text-white"
+                  }`}
+                >
+                  {/* THE GLIDING LASER PILL */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 bg-[#FF3B30] rounded-full shadow-[0_0_20px_rgba(255,59,48,0.4)]"
+                      // Apple-style fluid spring physics
+                      transition={{ type: "spring", stiffness: 500, damping: 35 }} 
+                      style={{ zIndex: -1 }}
+                    />
+                  )}
+
+                  <span className="relative z-20 flex items-center gap-2">
+                    {link.icon}
+                    <span className="hidden sm:block">{link.name}</span>
+                  </span>
+                </motion.div>
+              </Link>
+            );
+          })}
         </div>
 
-        <div className="flex items-center gap-4">
-          <button className="text-zinc-400 hover:text-white transition-colors">
-            <Search size={20} />
-          </button>
-          <button className="md:hidden text-zinc-400 hover:text-white">
-            <Menu size={24} />
-          </button>
+        {/* ACTION BUTTON (SEARCH) */}
+        <div className="pl-2 pr-1 md:border-l border-white/10 ml-auto md:ml-0">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}
+            className="w-10 h-10 rounded-full bg-black/50 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all border border-white/5 hover:border-white/20"
+          >
+            <Search size={16} />
+          </motion.button>
         </div>
       </div>
     </motion.nav>
