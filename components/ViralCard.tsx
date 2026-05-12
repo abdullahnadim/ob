@@ -52,23 +52,28 @@ export default function ViralCard({ post }: any) {
   };
 
   return (
-    // 🚀 FIX 1: Removed 'h-full'. The card will now perfectly wrap its content without stretching!
     <Link href={`/post/${post.slug || '#'}`} className="group block w-full outline-none">
       
-      {/* 🚀 FIX 2: Increased padding (p-3.5) and softened the border radius for a premium look */}
       <div className="obsidian-glass rounded-[2rem] p-3.5 md:p-4 flex flex-col relative overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.8)] border border-white/5 hover:border-white/10">
         
-        {/* 🚀 FIX 3: Mobile is now aspect-square! PC stays aspect-[4/5]. This stops the massive stretching. */}
-        <div className="relative aspect-square md:aspect-[4/5] w-full rounded-2xl overflow-hidden bg-black mb-4 md:mb-5">
+        {/* 🚀 THE DYNAMIC RATIO FIX 
+            1. Removed aspect-square / aspect-[4/5].
+            2. Added max-h-[75vh] so ultra-tall images don't take up the ENTIRE screen.
+            3. Swapped Next.js 'fill' for width/height + 'w-full h-auto object-contain'. 
+               This guarantees ZERO cropping ever! 
+        */}
+        <div className="relative w-full rounded-2xl overflow-hidden bg-[#050505] mb-4 md:mb-5 flex items-center justify-center max-h-[75vh]">
           <Image 
             src={post.thumbnailUrl || "/placeholder.jpg"} 
             alt={post.title} 
-            fill 
+            // We use arbitrary large numbers here because unoptimized=true allows CSS to take full control
+            width={1200} 
+            height={1200}
             unoptimized={true}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover opacity-100 md:opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            className="w-full h-auto max-h-[75vh] object-contain opacity-100 md:opacity-80 group-hover:opacity-100 transition-opacity duration-700 ease-in-out"
           />
-          <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-zinc-300 shadow-xl">
+          
+          <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-zinc-300 shadow-xl z-10">
             {post.category || "Trending"}
           </div>
         </div>
@@ -76,12 +81,10 @@ export default function ViralCard({ post }: any) {
         {/* Metadata Container */}
         <div className="flex flex-col px-1 md:px-2">
           
-          {/* 🚀 Increased line height (leading-relaxed) so the Bengali text breathes nicely */}
           <h3 className="font-bengali text-base md:text-lg font-medium leading-relaxed text-white md:text-zinc-300 group-hover:text-white transition-colors mb-4 line-clamp-2">
             {post.title}
           </h3>
           
-          {/* 🚀 Cleaned up the bottom row spacing and border */}
           <div className="flex items-center justify-between pt-4 border-t border-white/5 mt-auto">
             
             <motion.button 

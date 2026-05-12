@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Flame, LayoutDashboard, Search } from "lucide-react";
+import { Home, Flame, Mail, Search } from "lucide-react"; 
 import Logo from "@/components/Logo";
 
 export default function Navbar() {
@@ -12,7 +12,6 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const pathname = usePathname();
 
-  // The "Smart Scroll" logic (hides on scroll down, shows on scroll up)
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
@@ -22,10 +21,16 @@ export default function Navbar() {
     }
   });
 
+  // 🚀 THE FIX: This line completely destroys the public Navbar 
+  // if you are anywhere inside the /admin routes!
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const navLinks = [
     { name: "Feed", path: "/", icon: <Home size={16} /> },
     { name: "Trending", path: "/trending", icon: <Flame size={16} /> },
-    { name: "Studio", path: "/admin", icon: <LayoutDashboard size={16} /> },
+    { name: "Contact", path: "/contact", icon: <Mail size={16} /> }, 
   ];
 
   return (
@@ -36,26 +41,20 @@ export default function Navbar() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      // 🚀 THE FIX IS ON THIS LINE: "hidden md:flex" makes it vanish on phones!
       className="hidden md:flex fixed top-4 md:top-6 inset-x-0 z-50 justify-center px-4 pointer-events-none"
     >
       <div className="pointer-events-auto obsidian-glass p-1.5 md:p-2 rounded-full flex items-center gap-1 md:gap-2 shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/10 w-full max-w-fit">
         
-        {/* LOGO */}
         <Link href="/" className="pl-2 pr-3 md:pr-4 md:border-r border-white/10 hidden md:block transition-transform hover:scale-105">
           <Logo />
         </Link>
 
-        {/* NAVIGATION LINKS */}
         <div className="flex items-center gap-1">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
 
             return (
               <Link key={link.name} href={link.path} className="relative z-10 outline-none">
-                {/* PHYSICAL CLICK FEEDBACK 
-                  The button physically presses down when clicked and scales up on hover
-                */}
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -63,12 +62,10 @@ export default function Navbar() {
                     isActive ? "text-white" : "text-zinc-500 hover:text-white"
                   }`}
                 >
-                  {/* THE GLIDING LASER PILL */}
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill"
                       className="absolute inset-0 bg-[#FF3B30] rounded-full shadow-[0_0_20px_rgba(255,59,48,0.4)]"
-                      // Apple-style fluid spring physics
                       transition={{ type: "spring", stiffness: 500, damping: 35 }} 
                       style={{ zIndex: -1 }}
                     />
@@ -84,7 +81,6 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* ACTION BUTTON (SEARCH) */}
         <div className="pl-2 pr-1 md:border-l border-white/10 ml-auto md:ml-0">
           <motion.button 
             whileHover={{ scale: 1.05 }}
