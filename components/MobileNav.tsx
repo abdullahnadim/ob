@@ -1,18 +1,24 @@
- "use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Flame, LayoutDashboard, Search } from "lucide-react";
+import { Home, Flame, Search, Mail } from "lucide-react"; // 🚀 Swapped LayoutDashboard for Mail
 
 export default function MobileNav() {
   const pathname = usePathname();
 
+  // 🚀 THE FIX: This completely hides the public mobile nav if you are inside the Admin Studio!
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
+  // 🚀 THE FIX: Replaced "Studio" with "Contact" for your public audience
   const navLinks = [
     { name: "Feed", path: "/", icon: <Home size={24} strokeWidth={2.5} /> },
     { name: "Trending", path: "/trending", icon: <Flame size={24} strokeWidth={2.5} /> },
     { name: "Search", path: "/search", icon: <Search size={24} strokeWidth={2.5} /> },
-    { name: "Studio", path: "/admin", icon: <LayoutDashboard size={24} strokeWidth={2.5} /> },
+    { name: "Contact", path: "/contact", icon: <Mail size={24} strokeWidth={2.5} /> }, 
   ];
 
   return (

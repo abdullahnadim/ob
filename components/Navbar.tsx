@@ -82,13 +82,20 @@ export default function Navbar() {
         </div>
 
         <div className="pl-2 pr-1 md:border-l border-white/10 ml-auto md:ml-0">
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-10 h-10 rounded-full bg-black/50 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all border border-white/5 hover:border-white/20"
-          >
-            <Search size={16} />
-          </motion.button>
+          {/* 🚀 THE SEARCH LINK FIX */}
+          <Link href="/search" className="outline-none block">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all border ${
+                pathname === "/search" 
+                  ? "bg-[#FF3B30] text-white border-transparent shadow-[0_0_20px_rgba(255,59,48,0.4)]" 
+                  : "bg-black/50 hover:bg-white/10 text-zinc-400 hover:text-white border-white/5 hover:border-white/20"
+              }`}
+            >
+              <Search size={16} />
+            </motion.div>
+          </Link>
         </div>
       </div>
     </motion.nav>

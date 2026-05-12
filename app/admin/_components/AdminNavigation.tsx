@@ -2,87 +2,88 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PenBox, FolderTree, Settings, Globe, LogOut, FileText } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
+// 🚀 ONE clean line of imports to prevent duplication errors!
+import { PenBox, FolderTree, Settings, Globe, LogOut, FileText, Mail } from "lucide-react";
 
 export default function AdminNavigation() {
   const pathname = usePathname();
 
   const handleLogout = async () => {
-    if (confirm("Are you sure you want to log out?")) {
-      await signOut(auth);
-      window.location.href = "/";
-    }
+    await signOut(auth);
   };
 
   const navLinks = [
     { name: "Write", path: "/admin", icon: <PenBox size={20} /> },
-    { name: "Posts", path: "/admin/posts", icon: <FileText size={20} /> }, 
+    { name: "Posts", path: "/admin/posts", icon: <FileText size={20} /> },
+    { name: "Inbox", path: "/admin/inbox", icon: <Mail size={20} /> },
     { name: "Categories", path: "/admin/categories", icon: <FolderTree size={20} /> },
     { name: "Settings", path: "/admin/profile", icon: <Settings size={20} /> },
   ];
 
   return (
     <>
-      {/* 💻 DESKTOP SIDEBAR */}
-      <aside className="hidden md:flex flex-col fixed top-0 left-0 w-64 h-screen obsidian-glass border-r border-white/5 z-50 p-6 bg-[#050505]">
-        <div className="mb-10 pl-2">
-          <h2 className="text-2xl font-black text-white uppercase tracking-widest">
-            Studio <span className="text-[#FF3B30]">OB</span>
-          </h2>
-          <p className="text-zinc-500 text-[10px] font-bold tracking-widest uppercase mt-1">Admin Control</p>
+      {/* DESKTOP SIDEBAR */}
+      <aside className="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-[#050505] border-r border-white/10 z-50">
+        <div className="p-6 border-b border-white/10">
+          <Link href="/admin">
+            <h2 className="text-xl font-black text-white uppercase tracking-widest">
+              Studio <span className="text-[#FF3B30]">OB</span>
+            </h2>
+            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mt-1">Admin Control</p>
+          </Link>
         </div>
 
-        <nav className="flex flex-col gap-2 flex-1">
+        <nav className="flex-1 py-6 px-4 space-y-2 overflow-y-auto">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
             return (
-              <Link key={link.name} href={link.path}>
-                <div className={`flex items-center gap-4 px-4 py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-all duration-300 ${
-                  isActive 
-                    ? "bg-[#FF3B30] text-white shadow-[0_0_15px_rgba(255,59,48,0.3)]" 
-                    : "text-zinc-500 hover:text-white hover:bg-white/5"
-                }`}>
-                  {link.icon}
-                  {link.name}
-                </div>
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 ${
+                  isActive
+                    ? "bg-[#FF3B30] text-white shadow-[0_0_15px_rgba(255,59,48,0.3)]"
+                    : "text-zinc-500 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                {link.icon}
+                {link.name}
               </Link>
             );
           })}
         </nav>
 
-        <div className="flex flex-col gap-2 pt-6 border-t border-white/5">
-          <Link href="/">
-            <div className="flex items-center gap-4 px-4 py-3 rounded-xl font-bold uppercase tracking-widest text-xs text-zinc-500 hover:text-white hover:bg-white/5 transition-all">
-              <Globe size={20} /> View Site
-            </div>
+        <div className="p-4 border-t border-white/10 space-y-2">
+          <Link href="/" target="_blank" className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest text-zinc-500 hover:bg-white/5 hover:text-white transition-all">
+            <Globe size={20} /> View Site
           </Link>
-          <button onClick={handleLogout} className="flex items-center gap-4 px-4 py-3 rounded-xl font-bold uppercase tracking-widest text-xs text-zinc-500 hover:text-[#FF3B30] hover:bg-white/5 transition-all w-full text-left">
+          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest text-zinc-500 hover:bg-red-500/10 hover:text-red-500 transition-all text-left">
             <LogOut size={20} /> Log Out
           </button>
         </div>
       </aside>
 
-      {/* 📱 MOBILE BOTTOM BAR */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full obsidian-glass bg-[#050505]/90 backdrop-blur-md border-t border-white/10 z-50 px-6 py-4 pb-safe flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
-        {navLinks.map((link) => {
-          const isActive = pathname === link.path;
-          return (
-            <Link key={link.name} href={link.path}>
-              <div className={`flex flex-col items-center gap-1 transition-colors ${
-                isActive ? "text-[#FF3B30]" : "text-zinc-500 hover:text-white"
-              }`}>
+      {/* MOBILE BOTTOM NAVIGATION */}
+      <nav className="md:hidden fixed bottom-0 inset-x-0 bg-[#050505]/90 backdrop-blur-xl border-t border-white/10 z-50 pb-safe">
+        <div className="flex items-center justify-around px-2 py-3">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.path;
+            return (
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-colors ${
+                  isActive ? "text-[#FF3B30]" : "text-zinc-500 hover:text-white"
+                }`}
+              >
                 {link.icon}
                 <span className="text-[9px] font-bold uppercase tracking-widest">{link.name}</span>
-              </div>
-            </Link>
-          );
-        })}
-        <button onClick={handleLogout} className="flex flex-col items-center gap-1 text-zinc-500 hover:text-[#FF3B30] transition-colors">
-          <LogOut size={20} />
-          <span className="text-[9px] font-bold uppercase tracking-widest">Exit</span>
-        </button>
+              </Link>
+            );
+          })}
+        </div>
       </nav>
     </>
   );

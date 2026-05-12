@@ -24,10 +24,10 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      // 🚀 Saves the message directly to your Firebase Database!
-      await addDoc(collection(db, "contactMessages"), {
+      // 🚀 THE FIX: Changed to "messages" and "isRead: false" to match your Admin Inbox exactly!
+      await addDoc(collection(db, "messages"), {
         ...formData,
-        read: false, // You can use this later in an admin panel to mark as read
+        isRead: false, 
         createdAt: serverTimestamp(),
       });
       

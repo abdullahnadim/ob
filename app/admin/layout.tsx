@@ -60,13 +60,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
-  // 🚀 THE FIX: padding-left (md:pl-64) reserves the exact width of the sidebar!
+  // 📝 IF LOGGED IN: SHOW NEW DASHBOARD ARCHITECTURE
   return (
     <div className="min-h-screen bg-[#050505] text-white">
+      
       <AdminNavigation />
-      <main className="md:pl-64 pb-24 md:pb-0 min-h-screen flex flex-col w-full max-w-[100vw] overflow-x-hidden">
+      
+      {/* 🚀 THE FIX: md:pl-64 safely pads the exact width of the sidebar (16rem). 
+          No flexbox, no calc math, just a solid block. */}
+      <main className="w-full md:pl-64 pb-24 md:pb-0 min-h-screen overflow-x-hidden">
         {children}
       </main>
+
     </div>
   );
 }
