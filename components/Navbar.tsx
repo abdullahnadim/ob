@@ -65,7 +65,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill"
-                      className="absolute inset-0 bg-[#FF3B30] rounded-full shadow-[0_0_20px_rgba(255,59,48,0.4)]"
+                      className="absolute inset-0 bg-[#780000] rounded-full shadow-[0_0_20px_rgba(255,59,48,0.4)]"
                       transition={{ type: "spring", stiffness: 500, damping: 35 }} 
                       style={{ zIndex: -1 }}
                     />
@@ -89,8 +89,8 @@ export default function Navbar() {
               whileTap={{ scale: 0.9 }}
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all border ${
                 pathname === "/search" 
-                  ? "bg-[#FF3B30] text-white border-transparent shadow-[0_0_20px_rgba(255,59,48,0.4)]" 
-                  : "bg-black/50 hover:bg-white/10 text-zinc-400 hover:text-white border-white/5 hover:border-white/20"
+                  ? "bg-[#780000] text-[#fdf0d5] border-transparent shadow-[0_0_20px_rgba(255,59,48,0.4)]" 
+                  : "bg-black/50 hover:bg-white/10 text-zinc-400 hover:hover:text-[#fdf0d5] border-white/5 hover:border-white/20"
               }`}
             >
               <Search size={16} />

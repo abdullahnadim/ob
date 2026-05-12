@@ -65,7 +65,7 @@ export default function SearchPage() {
         {/* 🚀 THE FIXED SEARCH INPUT - Uses padding instead of height, standard 2xl radius, and group-focus colors */}
         <div className="relative mb-12 w-full group">
           <div className="absolute inset-y-0 left-0 flex items-center pl-5 md:pl-6 pointer-events-none">
-            <Search className="text-zinc-500 group-focus-within:text-[#FF3B30] transition-colors duration-300" size={22} />
+            <Search className="text-zinc-500 group-focus-within:text-[#780000] transition-colors duration-300" size={22} />
           </div>
           <input
             type="text"
@@ -73,7 +73,7 @@ export default function SearchPage() {
             placeholder="Search articles, topics, or keywords..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full bg-[#0A0A0A] border border-white/10 rounded-2xl py-4 md:py-5 pl-14 md:pl-16 pr-6 text-base md:text-lg text-white placeholder:text-zinc-600 focus:border-[#FF3B30] focus:ring-1 focus:ring-[#FF3B30] focus:bg-[#FF3B30]/5 outline-none transition-all duration-300 shadow-inner"
+            className="block w-full bg-[#0A0A0A] border border-white/10 rounded-2xl py-4 md:py-5 pl-14 md:pl-16 pr-6 text-base md:text-lg text-white placeholder:text-zinc-600 focus:border-[#780000] focus:ring-1 focus:ring-[#780000] focus:bg-[#780000]/5 outline-none transition-all duration-300 shadow-inner"
           />
         </div>
 
@@ -81,7 +81,7 @@ export default function SearchPage() {
         <div className="space-y-6 w-full">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
-              <Loader2 size={40} className="text-[#FF3B30] animate-spin mb-4" />
+              <Loader2 size={40} className="text-[#780000] animate-spin mb-4" />
               <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Accessing Database...</p>
             </div>
           ) : (
@@ -109,7 +109,7 @@ export default function SearchPage() {
                           unoptimized
                         />
                         {post.isTrending && (
-                          <div className="absolute top-2 left-2 bg-[#FF3B30] w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
+                          <div className="absolute top-2 left-2 bg-[#780000] w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
                             <Flame size={12} className="text-white fill-white" />
                           </div>
                         )}
@@ -118,12 +118,12 @@ export default function SearchPage() {
                       {/* TEXT INFO */}
                       <div className="flex flex-col justify-center min-w-0">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="bg-[#FF3B30] text-white px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest shrink-0">
+                          <span className="bg-[#780000] text-white px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest shrink-0">
                             {post.category}
                           </span>
                         </div>
                         
-                        <h3 className="text-white font-black text-xl leading-tight mb-2 group-hover:text-[#FF3B30] transition-colors truncate md:whitespace-normal md:line-clamp-2">
+                        <h3 className="text-white font-black text-xl leading-tight mb-2 group-hover:text-[#780000] transition-colors truncate md:whitespace-normal md:line-clamp-2">
                           {post.title}
                         </h3>
                         

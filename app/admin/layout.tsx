@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#050505]">
-        <Loader2 size={40} className="text-[#FF3B30] animate-spin mb-4" />
+        <Loader2 size={40} className="text-[#780000] animate-spin mb-4" />
         <span className="text-zinc-500 text-xs font-bold tracking-widest uppercase">Checking credentials...</span>
       </div>
     );
@@ -44,17 +44,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#050505] px-4">
         <form onSubmit={handleLogin} className="w-full max-w-md obsidian-glass p-8 md:p-10 rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#FF3B30] to-transparent opacity-50" />
-          <div className="flex justify-center mb-6 text-[#FF3B30]">
-            <div className="w-16 h-16 bg-[#FF3B30]/10 rounded-full flex items-center justify-center">
+          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#780000] to-transparent opacity-50" />
+          <div className="flex justify-center mb-6 text-[#780000]">
+            <div className="w-16 h-16 bg-[#780000]/10 rounded-full flex items-center justify-center">
               <Lock size={32} />
             </div>
           </div>
-          <h1 className="text-2xl font-black text-center mb-8 text-white uppercase tracking-widest">Studio <span className="text-[#FF3B30]">Access</span></h1>
-          {error && <p className="text-[#FF3B30] text-xs font-bold tracking-widest uppercase text-center mb-6 bg-[#FF3B30]/10 py-2 rounded-lg">{error}</p>}
-          <input type="email" placeholder="Admin Email" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 mb-4 text-white focus:border-[#FF3B30] outline-none transition-colors" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input type="password" placeholder="Password" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 mb-8 text-white focus:border-[#FF3B30] outline-none transition-colors" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          <button type="submit" className="w-full bg-[#FF3B30] hover:bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(255,59,48,0.2)]">Enter Command Center</button>
+          <h1 className="text-2xl font-black text-center mb-8 text-white uppercase tracking-widest">Studio <span className="text-[#780000]">Access</span></h1>
+          {error && <p className="text-[#780000] text-xs font-bold tracking-widest uppercase text-center mb-6 bg-[#780000]/10 py-2 rounded-lg">{error}</p>}
+          <input type="email" placeholder="Admin Email" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 mb-4 text-white focus:border-[#780000] outline-none transition-colors" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Password" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 mb-8 text-white focus:border-[#780000] outline-none transition-colors" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <button type="submit" className="w-full bg-[#780000] hover:bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(255,59,48,0.2)]">Enter Command Center</button>
         </form>
       </div>
     );

@@ -29,7 +29,7 @@ export default function AdminNavigation() {
         <div className="p-6 border-b border-white/10">
           <Link href="/admin">
             <h2 className="text-xl font-black text-white uppercase tracking-widest">
-              Studio <span className="text-[#FF3B30]">OB</span>
+              Studio <span className="text-[#780000]">OB</span>
             </h2>
             <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mt-1">Admin Control</p>
           </Link>
@@ -44,7 +44,7 @@ export default function AdminNavigation() {
                 href={link.path}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 ${
                   isActive
-                    ? "bg-[#FF3B30] text-white shadow-[0_0_15px_rgba(255,59,48,0.3)]"
+                    ? "bg-[#780000] text-white shadow-[0_0_15px_rgba(255,59,48,0.3)]"
                     : "text-zinc-500 hover:bg-white/5 hover:text-white"
                 }`}
               >
@@ -75,7 +75,7 @@ export default function AdminNavigation() {
                 key={link.name}
                 href={link.path}
                 className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-colors ${
-                  isActive ? "text-[#FF3B30]" : "text-zinc-500 hover:text-white"
+                  isActive ? "text-[#780000]" : "text-zinc-500 hover:text-white"
                 }`}
               >
                 {link.icon}

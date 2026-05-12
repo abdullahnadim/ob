@@ -166,19 +166,19 @@ export default function CategoryManager() {
   };
 
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#FF3B30] animate-spin" /></div>;
-  if (!user) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><ShieldAlert size={48} className="text-[#FF3B30]" /></div>;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#780000] animate-spin" /></div>;
+  if (!user) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><ShieldAlert size={48} className="text-[#780000]" /></div>;
 
   return (
     <div className="pt-24 pb-32 px-4 max-w-4xl mx-auto min-h-screen bg-[#050505]">
       
       <div className="flex items-center gap-4 mb-10">
-        <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#FF3B30]">
+        <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#780000]">
           <FolderTree size={32} />
         </div>
         <div>
           <h1 className="text-3xl font-black text-white uppercase tracking-widest">
-            Architecture <span className="text-[#FF3B30]">Panel</span>
+            Architecture <span className="text-[#780000]">Panel</span>
           </h1>
           <p className="text-zinc-500 text-sm font-bold tracking-widest mt-1">Drag to reorder. Hide from Navbar.</p>
         </div>
@@ -188,10 +188,10 @@ export default function CategoryManager() {
         <form onSubmit={handleAddCategory} className="flex gap-4">
           <input 
             type="text" required value={newCategoryName} onChange={(e) => setNewCategoryName(e.target.value)}
-            className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none"
+            className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none"
             placeholder="Create Parent Category..."
           />
-          <button type="submit" className="bg-[#FF3B30] hover:bg-red-600 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest transition-colors flex items-center gap-2">
+          <button type="submit" className="bg-[#780000] hover:bg-red-600 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest transition-colors flex items-center gap-2">
             <Plus size={18} /> Add
           </button>
         </form>
@@ -207,7 +207,7 @@ export default function CategoryManager() {
             onDragOver={(e) => e.preventDefault()} // 🚀 REQUIRED TO ALLOW DROPPING
             onDrop={(e) => handleDrop(e, cat.id)}
             className={`obsidian-glass p-6 rounded-3xl border transition-all duration-300 relative overflow-hidden group ${
-              draggedId === cat.id ? "opacity-50 border-[#FF3B30] scale-[0.98]" : "border-white/5 hover:border-white/20"
+              draggedId === cat.id ? "opacity-50 border-[#780000] scale-[0.98]" : "border-white/5 hover:border-white/20"
             } ${cat.isVisibleOnHome === false ? "opacity-60 grayscale" : ""}`}
           >
             
@@ -223,16 +223,16 @@ export default function CategoryManager() {
                   <div className="flex items-center gap-2 flex-1">
                     <input 
                       type="text" value={editingCategoryName} onChange={(e) => setEditingCategoryName(e.target.value)} autoFocus
-                      className="w-full bg-black/50 border border-[#FF3B30] rounded-xl px-4 py-2 text-white font-black uppercase tracking-widest outline-none shadow-[0_0_15px_rgba(255,59,48,0.2)]"
+                      className="w-full bg-black/50 border border-[#780000] rounded-xl px-4 py-2 text-white font-black uppercase tracking-widest outline-none shadow-[0_0_15px_rgba(255,59,48,0.2)]"
                       onKeyDown={(e) => e.key === "Enter" && handleRenameCategory(cat.id)}
                     />
-                    <button onClick={() => handleRenameCategory(cat.id)} className="bg-[#FF3B30] text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest">Save</button>
+                    <button onClick={() => handleRenameCategory(cat.id)} className="bg-[#780000] text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest">Save</button>
                     <button onClick={() => setEditingCategoryId(null)} className="bg-white/10 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest">Cancel</button>
                   </div>
                 ) : (
                   <h2 className="text-xl font-black text-white uppercase tracking-widest flex-1">
                     {cat.name} 
-                    {cat.isVisibleOnHome === false && <span className="text-[10px] text-[#FF3B30] ml-3 bg-[#FF3B30]/10 px-2 py-1 rounded-full border border-[#FF3B30]/20">HIDDEN</span>}
+                    {cat.isVisibleOnHome === false && <span className="text-[10px] text-[#780000] ml-3 bg-[#780000]/10 px-2 py-1 rounded-full border border-[#780000]/20">HIDDEN</span>}
                   </h2>
                 )}
               </div>
@@ -251,7 +251,7 @@ export default function CategoryManager() {
                   <button onClick={() => { setEditingCategoryId(cat.id); setEditingCategoryName(cat.name); }} className="text-zinc-500 hover:text-white transition-colors p-2 text-xs font-bold uppercase tracking-widest">
                     Edit
                   </button>
-                  <button onClick={() => handleDeleteCategory(cat.id)} className="text-zinc-600 hover:text-[#FF3B30] transition-colors p-2">
+                  <button onClick={() => handleDeleteCategory(cat.id)} className="text-zinc-600 hover:text-[#780000] transition-colors p-2">
                     <Trash2 size={18} />
                   </button>
                 </div>
@@ -263,7 +263,7 @@ export default function CategoryManager() {
               {cat.subcategories.map((sub, idx) => (
                 <div key={idx} className="flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-xs font-bold text-zinc-300">
                   {sub}
-                  <button onClick={() => handleRemoveSubcategory(cat.id, sub)} className="text-zinc-500 hover:text-[#FF3B30] transition-colors">&times;</button>
+                  <button onClick={() => handleRemoveSubcategory(cat.id, sub)} className="text-zinc-500 hover:text-[#780000] transition-colors">&times;</button>
                 </div>
               ))}
               {cat.subcategories.length === 0 && <span className="text-zinc-600 text-xs italic">No subcategories yet.</span>}
@@ -272,7 +272,7 @@ export default function CategoryManager() {
             <div className="flex items-center gap-3 ml-8">
               <input 
                 type="text" value={newSubcatInput[cat.id] || ""} onChange={(e) => setNewSubcatInput({ ...newSubcatInput, [cat.id]: e.target.value })}
-                className="w-full max-w-[250px] bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:border-[#FF3B30] outline-none"
+                className="w-full max-w-[250px] bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:border-[#780000] outline-none"
                 placeholder={`Add subcategory to ${cat.name}...`}
                 onKeyDown={(e) => e.key === "Enter" && handleAddSubcategory(cat.id)}
               />

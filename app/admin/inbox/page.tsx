@@ -83,10 +83,10 @@ export default function InboxPage() {
   };
 
   // 🔄 LOADING STATE
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#FF3B30] animate-spin" /></div>;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#780000] animate-spin" /></div>;
   
   // 🚫 DENY ACCESS IF NOT LOGGED IN
-  if (!user) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><ShieldAlert size={48} className="text-[#FF3B30]" /></div>;
+  if (!user) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><ShieldAlert size={48} className="text-[#780000]" /></div>;
 
   const unreadCount = messages.filter(m => !m.isRead).length;
 
@@ -98,17 +98,17 @@ export default function InboxPage() {
         {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#FF3B30] shrink-0 relative">
+            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#780000] shrink-0 relative">
               <Mail size={32} />
               {unreadCount > 0 && (
-                <div className="absolute -top-2 -right-2 bg-[#FF3B30] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,59,48,0.5)]">
+                <div className="absolute -top-2 -right-2 bg-[#780000] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,59,48,0.5)]">
                   {unreadCount}
                 </div>
               )}
             </div>
             <div>
               <h1 className="text-3xl font-black text-white uppercase tracking-widest">
-                Studio <span className="text-[#FF3B30]">Inbox</span>
+                Studio <span className="text-[#780000]">Inbox</span>
               </h1>
               <p className="text-zinc-500 text-sm font-bold tracking-widest mt-1">
                 {messages.length} Total Messages
@@ -123,7 +123,7 @@ export default function InboxPage() {
             <div 
               key={msg.id} 
               className={`obsidian-glass p-6 rounded-2xl border transition-all duration-300 w-full ${
-                msg.isRead ? "border-white/5 opacity-70" : "border-[#FF3B30]/30 shadow-[0_0_20px_rgba(255,59,48,0.05)]"
+                msg.isRead ? "border-white/5 opacity-70" : "border-[#780000]/30 shadow-[0_0_20px_rgba(255,59,48,0.05)]"
               }`}
             >
               
@@ -131,12 +131,12 @@ export default function InboxPage() {
               <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-4 pb-4 border-b border-white/5">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    {!msg.isRead && <div className="w-2 h-2 rounded-full bg-[#FF3B30] shadow-[0_0_8px_rgba(255,59,48,0.8)] shrink-0" />}
+                    {!msg.isRead && <div className="w-2 h-2 rounded-full bg-[#780000] shadow-[0_0_8px_rgba(255,59,48,0.8)] shrink-0" />}
                     <h3 className={`font-black text-lg truncate ${msg.isRead ? "text-white/80" : "text-white"}`}>
                       {msg.name}
                     </h3>
                   </div>
-                  <a href={`mailto:${msg.email}`} className="text-[#FF3B30] text-xs font-bold tracking-widest uppercase hover:underline inline-flex items-center gap-1 truncate">
+                  <a href={`mailto:${msg.email}`} className="text-[#780000] text-xs font-bold tracking-widest uppercase hover:underline inline-flex items-center gap-1 truncate">
                     <UserIcon size={12} /> {msg.email}
                   </a>
                 </div>
@@ -151,7 +151,7 @@ export default function InboxPage() {
                       <button 
                         onClick={() => handleMarkAsRead(msg.id, msg.isRead)}
                         disabled={isProcessing === msg.id}
-                        className="w-8 h-8 rounded-lg bg-[#FF3B30]/10 hover:bg-[#FF3B30]/20 text-[#FF3B30] flex items-center justify-center transition-colors border border-[#FF3B30]/20"
+                        className="w-8 h-8 rounded-lg bg-[#780000]/10 hover:bg-[#780000]/20 text-[#780000] flex items-center justify-center transition-colors border border-[#780000]/20"
                         title="Mark as Read"
                       >
                         {isProcessing === msg.id ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle size={14} />}

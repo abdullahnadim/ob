@@ -147,7 +147,7 @@ export default function EditPostPage() {
 
   // 🔄 LOADING STATE
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#FF3B30] animate-spin" /></div>;
+    return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#780000] animate-spin" /></div>;
   }
 
   // 🚫 ERROR / NOT FOUND STATE
@@ -155,7 +155,7 @@ export default function EditPostPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#050505] px-4">
         <div className="obsidian-glass p-8 text-center rounded-3xl border border-white/10 max-w-md">
-          <ShieldAlert size={48} className="text-[#FF3B30] mx-auto mb-4" />
+          <ShieldAlert size={48} className="text-[#780000] mx-auto mb-4" />
           <h2 className="text-xl font-black text-white uppercase tracking-widest mb-2">Error</h2>
           <p className="text-zinc-400 mb-6">{error}</p>
           <button onClick={() => router.push("/admin/posts")} className="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-xl font-bold transition-colors">Go Back</button>
@@ -166,7 +166,7 @@ export default function EditPostPage() {
 
   // 🚫 DENY ACCESS IF NOT LOGGED IN
   if (!user) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#050505] px-4"><ShieldAlert size={48} className="text-[#FF3B30]" /></div>;
+    return <div className="min-h-screen flex items-center justify-center bg-[#050505] px-4"><ShieldAlert size={48} className="text-[#780000]" /></div>;
   }
 
   // 📝 RENDER THE EDITOR
@@ -181,15 +181,15 @@ export default function EditPostPage() {
         <ArrowLeft size={16} /> Back to Posts
       </button>
 
-      <div className="obsidian-glass p-8 md:p-12 rounded-3xl border border-[#FF3B30]/20 shadow-2xl relative overflow-hidden">
+      <div className="obsidian-glass p-8 md:p-12 rounded-3xl border border-[#780000]/20 shadow-2xl relative overflow-hidden">
         
         {/* Subtle red gradient indicating Edit Mode */}
-        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#FF3B30] to-transparent opacity-50" />
+        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#780000] to-transparent opacity-50" />
 
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
           <div>
             <h2 className="text-3xl font-black text-white uppercase tracking-tight">
-              Edit <span className="text-[#FF3B30]">Post</span>
+              Edit <span className="text-[#780000]">Post</span>
             </h2>
             <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mt-1">ID: {postId}</p>
           </div>
@@ -202,7 +202,7 @@ export default function EditPostPage() {
               <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Post Title</label>
               <input 
                 type="text" required value={title} onChange={handleTitleChange}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none transition-all shadow-inner"
               />
             </div>
 
@@ -225,25 +225,25 @@ export default function EditPostPage() {
                     if (e.target.value === "CUSTOM") setIsCustomCategory(true);
                     else setCategory(e.target.value);
                   }}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none transition-all cursor-pointer"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none transition-all cursor-pointer"
                 >
                   <option value="Trending" className="bg-[#050505] text-white font-bold">🔥 Trending Main</option>
                   
                   {availableCategories.map((cat, idx) => (
-                    <optgroup key={idx} label={`── ${cat.name.toUpperCase()} ──`} className="bg-[#050505] text-[#FF3B30] font-black uppercase tracking-widest">
+                    <optgroup key={idx} label={`── ${cat.name.toUpperCase()} ──`} className="bg-[#050505] text-[#780000] font-black uppercase tracking-widest">
                       <option value={cat.name} className="text-white font-medium capitalize">{cat.name} (General)</option>
                       {cat.subcategories && cat.subcategories.map((sub, subIdx) => (
                         <option key={subIdx} value={`${cat.name} > ${sub}`} className="text-zinc-300 capitalize">↳ {sub}</option>
                       ))}
                     </optgroup>
                   ))}
-                  <option value="CUSTOM" className="bg-[#FF3B30] text-white font-bold mt-4">➕ Add Custom Category...</option>
+                  <option value="CUSTOM" className="bg-[#780000] text-white font-bold mt-4">➕ Add Custom Category...</option>
                 </select>
               ) : (
                 <div className="flex items-center gap-2">
                   <input 
                     type="text" required value={customCategory} onChange={(e) => setCustomCategory(e.target.value)} autoFocus
-                    className="w-full bg-white/5 border border-[#FF3B30] rounded-xl px-4 py-3 text-white outline-none"
+                    className="w-full bg-white/5 border border-[#780000] rounded-xl px-4 py-3 text-white outline-none"
                     placeholder="Type new category..."
                   />
                   <button type="button" onClick={() => setIsCustomCategory(false)} className="px-4 py-3 bg-white/10 hover:bg-white/20 rounded-xl text-white text-xs font-bold">Cancel</button>
@@ -278,13 +278,13 @@ export default function EditPostPage() {
             </div>
           </div>
 
-          <div onClick={() => setIsTrending(!isTrending)} className={`flex items-center gap-4 p-5 rounded-xl border cursor-pointer transition-all duration-300 ${isTrending ? "bg-[#FF3B30]/10 border-[#FF3B30]" : "bg-white/5 border-white/10 hover:border-white/20"}`}>
-            <div className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${isTrending ? "bg-[#FF3B30]" : "bg-black/50 border border-white/20"}`}>
+          <div onClick={() => setIsTrending(!isTrending)} className={`flex items-center gap-4 p-5 rounded-xl border cursor-pointer transition-all duration-300 ${isTrending ? "bg-[#780000]/10 border-[#780000]" : "bg-white/5 border-white/10 hover:border-white/20"}`}>
+            <div className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${isTrending ? "bg-[#780000]" : "bg-black/50 border border-white/20"}`}>
               {isTrending && <Check size={14} className="text-white" />}
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-2">
-                Push to Trending <Flame size={16} className={isTrending ? "text-[#FF3B30] fill-[#FF3B30]" : "text-zinc-500"} />
+                Push to Trending <Flame size={16} className={isTrending ? "text-[#780000] fill-[#780000]" : "text-zinc-500"} />
               </span>
               <span className="text-[10px] text-zinc-400 mt-1">
                 If checked, this post will jump to the top of the Trending page.
@@ -292,7 +292,7 @@ export default function EditPostPage() {
             </div>
           </div>
 
-          <button type="submit" disabled={isSaving} className="w-full bg-[#FF3B30] hover:bg-red-600 text-white font-black uppercase tracking-widest text-lg py-5 rounded-xl transition-all duration-300 disabled:opacity-50 shadow-[0_0_40px_rgba(255,59,48,0.2)] flex justify-center items-center gap-2">
+          <button type="submit" disabled={isSaving} className="w-full bg-[#780000] hover:bg-red-600 text-white font-black uppercase tracking-widest text-lg py-5 rounded-xl transition-all duration-300 disabled:opacity-50 shadow-[0_0_40px_rgba(255,59,48,0.2)] flex justify-center items-center gap-2">
             {isSaving ? <Loader2 size={24} className="animate-spin" /> : <><Save size={20} /> Save Changes</>}
           </button>
         </form>

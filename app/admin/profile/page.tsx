@@ -98,7 +98,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <h1 className="text-3xl font-black text-white uppercase tracking-widest">
-              Author <span className="text-[#FF3B30]">Profile</span>
+              Author <span className="text-[#780000]">Profile</span>
             </h1>
             <p className="text-zinc-500 text-sm font-bold tracking-widest mt-1">{user?.email}</p>
           </div>
@@ -108,7 +108,7 @@ export default function ProfilePage() {
           
           {/* SECTION: Identity */}
           <div className="space-y-6">
-            <h3 className="text-[#FF3B30] text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+            <h3 className="text-[#780000] text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <ShieldCheck size={14} /> Public Identity
             </h3>
 
@@ -117,7 +117,7 @@ export default function ProfilePage() {
                 <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Main Name (Legal/Real)</label>
                 <input 
                   type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner"
+                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none transition-all shadow-inner"
                   placeholder="E.g. John Doe"
                 />
               </div>
@@ -126,7 +126,7 @@ export default function ProfilePage() {
                 <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Nickname (Anonymous)</label>
                 <input 
                   type="text" value={nickname} onChange={(e) => setNickname(e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner"
+                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none transition-all shadow-inner"
                   placeholder="E.g. GhostWriter99"
                 />
               </div>
@@ -136,7 +136,7 @@ export default function ProfilePage() {
               <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Which name should appear on your posts?</label>
               <select 
                 value={displayPreference} onChange={(e) => setDisplayPreference(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none appearance-none cursor-pointer"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none appearance-none cursor-pointer"
               >
                 <option value="main" className="bg-[#050505]">Use Main Name ({displayName || "Not set"})</option>
                 <option value="nickname" className="bg-[#050505]">Use Nickname ({nickname || "Not set"})</option>
@@ -154,7 +154,7 @@ export default function ProfilePage() {
               <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Change Password (Leave blank to keep current)</label>
               <input 
                 type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner"
+                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] outline-none transition-all shadow-inner"
                 placeholder="••••••••"
               />
             </div>
@@ -163,7 +163,7 @@ export default function ProfilePage() {
           {/* SUBMIT */}
           <button 
             type="submit" disabled={isSaving}
-            className="w-full mt-8 bg-[#FF3B30] hover:bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all duration-300 disabled:opacity-50 shadow-[0_0_20px_rgba(255,59,48,0.2)]"
+            className="w-full mt-8 bg-[#780000] hover:bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all duration-300 disabled:opacity-50 shadow-[0_0_20px_rgba(255,59,48,0.2)]"
           >
             {isSaving ? "Saving..." : "Save Profile Changes"}
           </button>

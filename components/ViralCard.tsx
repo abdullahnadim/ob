@@ -94,13 +94,13 @@ export default function ViralCard({ post }: any) {
               transition={{ duration: 0.3, ease: "easeInOut" }} 
               className={`flex items-center gap-2 text-xs font-bold tracking-widest px-3 py-1.5 -ml-3 rounded-full transition-all duration-300 ${
                 isHyped 
-                  ? "text-[#FF3B30] bg-[#FF3B30]/10" 
+                  ? "text-[#780000] bg-[#780000]/10" 
                   : "text-zinc-500 hover:text-white hover:bg-white/5"
               }`}
             >
               <Flame 
                 size={16} 
-                className={`transition-all duration-500 ${isHyped ? "fill-[#FF3B30]" : "fill-transparent"}`} 
+                className={`transition-all duration-500 ${isHyped ? "fill-[#780000]" : "fill-transparent"}`} 
               /> 
               {localViews}
             </motion.button>

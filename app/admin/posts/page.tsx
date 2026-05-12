@@ -64,8 +64,8 @@ export default function ManagePosts() {
     }
   };
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#FF3B30] animate-spin" /></div>;
-  if (!user) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><ShieldAlert size={48} className="text-[#FF3B30]" /></div>;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><Loader2 size={48} className="text-[#780000] animate-spin" /></div>;
+  if (!user) return <div className="min-h-screen flex items-center justify-center bg-[#050505]"><ShieldAlert size={48} className="text-[#780000]" /></div>;
 
   return (
     // 🚀 THE FIX: flex flex-col items-center forces the inner div to stay dead center
@@ -76,12 +76,12 @@ export default function ManagePosts() {
         
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#FF3B30] shrink-0">
+            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#780000] shrink-0">
               <FileText size={32} />
             </div>
             <div>
               <h1 className="text-3xl font-black text-white uppercase tracking-widest">
-                Manage <span className="text-[#FF3B30]">Posts</span>
+                Manage <span className="text-[#780000]">Posts</span>
               </h1>
               <p className="text-zinc-500 text-sm font-bold tracking-widest mt-1">
                 {posts.length} Published Articles
@@ -89,7 +89,7 @@ export default function ManagePosts() {
             </div>
           </div>
           <Link href="/admin">
-            <button className="bg-[#FF3B30] hover:bg-red-600 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest transition-colors shrink-0">
+            <button className="bg-[#780000] hover:bg-red-600 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest transition-colors shrink-0">
               + New Post
             </button>
           </Link>
@@ -109,7 +109,7 @@ export default function ManagePosts() {
                   unoptimized
                 />
                 {post.isTrending && (
-                  <div className="absolute top-2 left-2 bg-[#FF3B30] w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="absolute top-2 left-2 bg-[#780000] w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
                     <Flame size={12} className="text-white fill-white" />
                   </div>
                 )}
@@ -145,7 +145,7 @@ export default function ManagePosts() {
                 </Link>
                 
                 <Link href={`/admin/edit/${post.id}`}>
-                  <button className="w-10 h-10 rounded-xl bg-white/5 hover:bg-[#FF3B30]/20 text-zinc-400 hover:text-[#FF3B30] flex items-center justify-center transition-colors">
+                  <button className="w-10 h-10 rounded-xl bg-white/5 hover:bg-[#780000]/20 text-zinc-400 hover:text-[#780000] flex items-center justify-center transition-colors">
                     <Edit3 size={16} />
                   </button>
                 </Link>

@@ -73,7 +73,7 @@ export default function FeedContent() {
               onClick={() => setActiveCategory(cat)}
               className={`pb-4 -mb-[17px] text-sm font-medium tracking-widest uppercase transition-all duration-300 ${
                 activeCategory === cat 
-                  ? "text-white border-b-2 border-[#FF3B30]" 
+                  ? "text-white border-b-2 border-[#780000]" 
                   : "text-zinc-500 hover:text-zinc-300"
               }`}
             >
@@ -104,8 +104,8 @@ export default function FeedContent() {
                   
                   <div className="absolute bottom-0 left-0 p-6 md:p-12 w-full md:w-3/4">
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="h-[1px] w-12 bg-[#FF3B30]"></div>
-                      <span className="text-[#FF3B30] text-xs font-bold uppercase tracking-widest">
+                      <div className="h-[1px] w-12 bg-[#780000]"></div>
+                      <span className="text-[#780000] text-xs font-bold uppercase tracking-widest">
                         {featuredPost.category || "Hottest"}
                       </span>
                     </div>

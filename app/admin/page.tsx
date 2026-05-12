@@ -159,7 +159,7 @@ export default function AdminDashboard() {
   if (isLoadingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#050505]">
-        <Loader2 size={48} className="text-[#FF3B30] animate-spin" />
+        <Loader2 size={48} className="text-[#780000] animate-spin" />
       </div>
     );
   }
@@ -168,11 +168,11 @@ export default function AdminDashboard() {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4 bg-[#050505]">
-        <div className="obsidian-glass p-8 md:p-12 rounded-3xl border border-[#FF3B30]/30 shadow-2xl flex flex-col items-center max-w-md text-center">
-          <ShieldAlert size={48} className="text-[#FF3B30] mb-6" />
+        <div className="obsidian-glass p-8 md:p-12 rounded-3xl border border-[#780000]/30 shadow-2xl flex flex-col items-center max-w-md text-center">
+          <ShieldAlert size={48} className="text-[#780000] mb-6" />
           <h2 className="text-2xl font-black text-white uppercase tracking-widest mb-4">Access Denied</h2>
           <p className="text-zinc-400 mb-8">You must be an authenticated author to access the Studio. Please log in to continue.</p>
-          <a href="/login" className="w-full bg-[#FF3B30] hover:bg-red-600 text-white font-bold uppercase tracking-widest py-4 rounded-xl transition-all block">
+          <a href="/login" className="w-full bg-[#780000] hover:bg-red-600 text-white font-bold uppercase tracking-widest py-4 rounded-xl transition-all block">
             Go to Login
           </a>
         </div>
@@ -186,7 +186,7 @@ export default function AdminDashboard() {
       <div className="obsidian-glass p-8 md:p-12 rounded-3xl border border-white/5 shadow-2xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
           <h2 className="text-3xl font-black text-white uppercase tracking-tight">
-            Create New <span className="text-[#FF3B30]">Post</span>
+            Create New <span className="text-[#780000]">Post</span>
           </h2>
           <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-full flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -201,7 +201,7 @@ export default function AdminDashboard() {
               <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Post Title</label>
               <input 
                 type="text" required value={title} onChange={handleTitleChange}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] focus:bg-white/10 outline-none transition-all shadow-inner"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] focus:bg-white/10 outline-none transition-all shadow-inner"
                 placeholder="Enter a catchy title..."
               />
             </div>
@@ -228,13 +228,13 @@ export default function AdminDashboard() {
                       setCategory(e.target.value);
                     }
                   }}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF3B30] focus:bg-white/10 outline-none transition-all appearance-none cursor-pointer"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#780000] focus:bg-white/10 outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="Trending" className="bg-[#050505] text-white font-bold">🔥 Trending Main</option>
                   
                   {/* 🚀 Render Dynamic Categories from Firebase */}
                   {availableCategories.map((cat, idx) => (
-                    <optgroup key={idx} label={`── ${cat.name.toUpperCase()} ──`} className="bg-[#050505] text-[#FF3B30] font-black uppercase tracking-widest">
+                    <optgroup key={idx} label={`── ${cat.name.toUpperCase()} ──`} className="bg-[#050505] text-[#780000] font-black uppercase tracking-widest">
                       {/* Parent Category Option */}
                       <option value={cat.name} className="text-white font-medium capitalize">
                         {cat.name} (General)
@@ -249,14 +249,14 @@ export default function AdminDashboard() {
                     </optgroup>
                   ))}
 
-                  <option value="CUSTOM" className="bg-[#FF3B30] text-white font-bold mt-4">➕ Add Custom Category...</option>
+                  <option value="CUSTOM" className="bg-[#780000] text-white font-bold mt-4">➕ Add Custom Category...</option>
                 </select>
               ) : (
                 <div className="flex items-center gap-2">
                   <input 
                     type="text" required value={customCategory} onChange={(e) => setCustomCategory(e.target.value)}
                     autoFocus
-                    className="w-full bg-white/5 border border-[#FF3B30] rounded-xl px-4 py-3 text-white outline-none shadow-[0_0_15px_rgba(255,59,48,0.2)]"
+                    className="w-full bg-white/5 border border-[#780000] rounded-xl px-4 py-3 text-white outline-none shadow-[0_0_15px_rgba(255,59,48,0.2)]"
                     placeholder="Type new category..."
                   />
                   <button 
@@ -295,17 +295,17 @@ export default function AdminDashboard() {
           <div 
             onClick={() => setIsTrending(!isTrending)}
             className={`flex items-center gap-4 p-5 rounded-xl border cursor-pointer transition-all duration-300 ${
-              isTrending ? "bg-[#FF3B30]/10 border-[#FF3B30]" : "bg-white/5 border-white/10 hover:border-white/20"
+              isTrending ? "bg-[#780000]/10 border-[#780000]" : "bg-white/5 border-white/10 hover:border-white/20"
             }`}
           >
             <div className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${
-              isTrending ? "bg-[#FF3B30]" : "bg-black/50 border border-white/20"
+              isTrending ? "bg-[#780000]" : "bg-black/50 border border-white/20"
             }`}>
               {isTrending && <Check size={14} className="text-white" />}
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-2">
-                Push to Trending <Flame size={16} className={isTrending ? "text-[#FF3B30] fill-[#FF3B30]" : "text-zinc-500"} />
+                Push to Trending <Flame size={16} className={isTrending ? "text-[#780000] fill-[#780000]" : "text-zinc-500"} />
               </span>
               <span className="text-[10px] text-zinc-400 mt-1">
                 Post will stay on the 🔥 Trending page for exactly 7 days before expiring to standard feeds.
@@ -316,7 +316,7 @@ export default function AdminDashboard() {
           <button 
             type="submit" 
             disabled={isPublishing}
-            className="w-full bg-[#FF3B30] hover:bg-red-600 text-white font-black uppercase tracking-widest text-lg py-5 rounded-xl transition-all duration-300 disabled:opacity-50 shadow-[0_0_40px_rgba(255,59,48,0.2)] hover:shadow-[0_0_60px_rgba(255,59,48,0.4)]"
+            className="w-full bg-[#780000] hover:bg-red-600 text-white font-black uppercase tracking-widest text-lg py-5 rounded-xl transition-all duration-300 disabled:opacity-50 shadow-[0_0_40px_rgba(255,59,48,0.2)] hover:shadow-[0_0_60px_rgba(255,59,48,0.4)]"
           >
             {isPublishing ? "Uploading to Void..." : "Publish Post 🚀"}
           </button>

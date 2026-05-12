@@ -51,7 +51,7 @@ export default function ContactPage() {
         {/* HEADER SECTION */}
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-4">
-            Get in <span className="text-[#FF3B30]">Touch</span>
+            Get in <span className="text-[#780000]">Touch</span>
           </h1>
           <p className="text-zinc-400 text-sm md:text-base max-w-xl mx-auto">
             Have a scoop, a meme idea, or want to advertise with OsthirBengali? Drop us a line below and our desk will get back to you.
@@ -63,8 +63,8 @@ export default function ContactPage() {
           {/* LEFT: CONTACT INFO CARDS */}
           <div className="lg:col-span-2 space-y-4">
             <div className="obsidian-glass p-6 rounded-3xl border border-white/5 flex items-start gap-4 hover:border-white/10 transition-colors">
-              <div className="w-12 h-12 bg-[#FF3B30]/10 rounded-full flex items-center justify-center shrink-0">
-                <Mail className="text-[#FF3B30]" size={20} />
+              <div className="w-12 h-12 bg-[#780000]/10 rounded-full flex items-center justify-center shrink-0">
+                <Mail className="text-[#780000]" size={20} />
               </div>
               <div>
                 <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-300 mb-1">Email Us</h3>
@@ -116,7 +116,7 @@ export default function ContactPage() {
                   <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest ml-1">Your Name</label>
                   <input 
                     type="text" name="name" required value={formData.name} onChange={handleChange}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner text-sm"
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#780000] outline-none transition-all shadow-inner text-sm"
                     placeholder="John Doe"
                   />
                 </div>
@@ -124,7 +124,7 @@ export default function ContactPage() {
                   <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest ml-1">Email Address</label>
                   <input 
                     type="email" name="email" required value={formData.email} onChange={handleChange}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner text-sm"
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#780000] outline-none transition-all shadow-inner text-sm"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
                 <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest ml-1">Subject</label>
                 <input 
                   type="text" name="subject" required value={formData.subject} onChange={handleChange}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner text-sm"
+                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#780000] outline-none transition-all shadow-inner text-sm"
                   placeholder="What is this regarding?"
                 />
               </div>
@@ -143,7 +143,7 @@ export default function ContactPage() {
                 <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest ml-1">Message</label>
                 <textarea 
                   name="message" required value={formData.message} onChange={handleChange} rows={5}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#FF3B30] outline-none transition-all shadow-inner text-sm resize-none"
+                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-[#780000] outline-none transition-all shadow-inner text-sm resize-none"
                   placeholder="Type your message here..."
                 />
               </div>
@@ -151,7 +151,7 @@ export default function ContactPage() {
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-[#FF3B30] hover:bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,59,48,0.2)]"
+                className="w-full bg-[#780000] hover:bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,59,48,0.2)]"
               >
                 {isSubmitting ? "Sending..." : "Send Message"} <Send size={16} />
               </button>

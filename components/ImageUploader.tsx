@@ -104,7 +104,7 @@ export default function ImageUploader({ onUploadSuccess }: ImageUploaderProps) {
                 setPreviewUrl(null);
                 onUploadSuccess(""); // Clear the form state too
               }}
-              className="bg-[#FF3B30] hover:bg-red-600 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-lg transition-colors"
+              className="bg-[#780000] hover:bg-red-600 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-lg transition-colors"
             >
               Remove Image
             </button>
@@ -122,18 +122,18 @@ export default function ImageUploader({ onUploadSuccess }: ImageUploaderProps) {
           onClick={() => fileInputRef.current?.click()}
           className={`relative aspect-video w-full rounded-2xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
             isDragging 
-              ? "border-[#FF3B30] bg-[#FF3B30]/5 scale-[0.98]" 
+              ? "border-[#780000] bg-[#780000]/5 scale-[0.98]" 
               : "border-white/10 obsidian-glass hover:border-white/20 hover:bg-white/[0.02]"
           }`}
         >
           {isUploading ? (
             <div className="flex flex-col items-center gap-4">
-              <Loader2 size={32} className="text-[#FF3B30] animate-spin" />
+              <Loader2 size={32} className="text-[#780000] animate-spin" />
               <div className="text-center">
                 <p className="text-sm font-bold text-white uppercase tracking-widest mb-2">Uploading Protocol</p>
                 <div className="w-48 h-2 bg-black rounded-full overflow-hidden border border-white/10">
                   <div 
-                    className="h-full bg-[#FF3B30] transition-all duration-300 ease-out shadow-[0_0_10px_rgba(255,59,48,0.8)]"
+                    className="h-full bg-[#780000] transition-all duration-300 ease-out shadow-[0_0_10px_rgba(255,59,48,0.8)]"
                     style={{ width: `${progress}%` }}
                   />
                 </div>

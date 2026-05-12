@@ -60,11 +60,11 @@ export default async function TrendingPage() {
       
       {/* 🚀 CINEMATIC HEADER */}
       <div className="w-full max-w-lg md:max-w-2xl px-4 text-center mb-10">
-        <div className="inline-flex items-center justify-center gap-2 w-16 h-16 rounded-full bg-[#FF3B30]/10 mb-4 shadow-[0_0_30px_rgba(255,59,48,0.3)]">
-          <Flame size={32} className="text-[#FF3B30] fill-[#FF3B30]" />
+        <div className="inline-flex items-center justify-center gap-2 w-16 h-16 rounded-full bg-[#780000]/10 mb-4 shadow-[0_0_30px_rgba(255,59,48,0.3)]">
+          <Flame size={32} className="text-[#780000] fill-[#780000]" />
         </div>
         <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">
-          Trending <span className="text-[#FF3B30]">Now</span>
+          Trending <span className="text-[#780000]">Now</span>
         </h1>
         <p className="text-zinc-400 text-sm md:text-base">
           The absolute hottest stories, memes, and culture drops of the last 7 days.
